@@ -247,6 +247,22 @@ body {
   gap: 0.6rem;
 }
 
+.tree-diagram {
+  margin-top: 1.25rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 8px;
+  background: rgba(5, 8, 22, 0.9);
+  border: 1px solid var(--border-subtle);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  overflow-x: auto;
+}
+
+.tree-diagram code {
+  white-space: pre;
+}
+
 .site-footer {
   border-top: 1px solid var(--border-subtle);
   padding: 1rem 0;

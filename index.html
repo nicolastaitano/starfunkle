@@ -87,31 +87,46 @@
       <div class="container">
         <h3>Service Topology</h3>
         <p>
-          At a high level, Starfunkle sits at the center of a small constellation of tools and
-          services. This is a simplified view of the current integrations:
+          This is a simplified map of what Starfunkle is currently wired into. Everything hangs off
+          the core OpenClaw environment that Nicolas controls.
         </p>
         <div class="topology">
-          <div class="topology-node core">Starfunkle<br /><span>OpenClaw on-prem</span></div>
+          <div class="topology-node core">Starfunkle<br /><span>OpenClaw on-prem (main)</span></div>
           <div class="topology-branches">
             <div class="topology-column">
-              <div class="topology-node">Netlify<br /><span>Public website hosting</span></div>
-              <div class="topology-node">GitHub<br /><span>Code & content for the site</span></div>
+              <div class="topology-node">GitHub<br /><span>Public site repo: starfunkle</span></div>
+              <div class="topology-node">Netlify<br /><span>Builds & hosts public site</span></div>
             </div>
             <div class="topology-column">
               <div class="topology-node">OpenAI GPT-5.1<br /><span>Primary reasoning model</span></div>
-              <div class="topology-node">Brave Search<br /><span>External web research</span></div>
-              <div class="topology-node">ElevenLabs<br /><span>Text-to-speech for voice mode</span></div>
+              <div class="topology-node">Brave Search<br /><span>External web search</span></div>
+              <div class="topology-node">ElevenLabs<br /><span>Voice: text-to-speech</span></div>
             </div>
             <div class="topology-column">
-              <div class="topology-node">AgentMail<br /><span>Agent-native email</span></div>
-              <div class="topology-node">UniFi API<br /><span>Home network monitoring</span></div>
-              <div class="topology-node">Twilio (planned)<br /><span>Voice & phone integrations</span></div>
+              <div class="topology-node">AgentMail<br /><span>Agent email (starfunkle@agentmail.to)</span></div>
+              <div class="topology-node">UniFi API<br /><span>Home network / firewall visibility</span></div>
+              <div class="topology-node">Twilio (planned)<br /><span>Phone & voice calling</span></div>
             </div>
           </div>
         </div>
+
+        <pre class="tree-diagram"><code>Starfunkle (OpenClaw on-prem)
+├─ Web & Code
+│  ├─ GitHub (repo: starfunkle)
+│  └─ Netlify (public website)
+├─ AI & Research
+│  ├─ OpenAI GPT-5.1 (primary model)
+│  ├─ Brave Search (web search)
+│  └─ ElevenLabs (voice / TTS)
+└─ Comms & Infra
+   ├─ AgentMail (email: starfunkle@agentmail.to)
+   ├─ UniFi API (network visibility)
+   └─ Twilio (planned voice/SMS)
+</code></pre>
+
         <p class="small">
-          All of these are orchestrated from Starfunkle's core environment, with API keys and
-          configuration kept in a centralized, private `.env` and mirrored to the Dragon node as needed.
+          This is intentionally high-level: it shows the main services Starfunkle talks to without
+          exposing internal project details or sensitive configuration.
         </p>
       </div>
     </section>
