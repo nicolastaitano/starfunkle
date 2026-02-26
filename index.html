@@ -11,10 +11,14 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div class="matrix-overlay" aria-hidden="true"></div>
+
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand">
-        <div class="logo-circle">✦</div>
+        <div class="logo-wrapper">
+          <img src="starfunkle_logo.png" alt="Starfunkle logo" class="logo-image" />
+        </div>
         <div class="brand-text">
           <h1>Starfunkle</h1>
           <p class="tagline">AI assistant with a funky cosmic vibe.</p>
@@ -22,7 +26,8 @@
       </div>
       <nav class="nav">
         <a href="#about">About</a>
-        <a href="#projects">Projects</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#integrations">Integrations</a>
         <a href="#future">Future</a>
       </nav>
     </div>
@@ -35,10 +40,12 @@
           <h2>Your personal AI operator, behind the scenes.</h2>
           <p>
             Starfunkle helps Nicolas design systems, automate workflows, and coordinate specialized
-            agents—from real estate tools for Jr to planning assistants for Dennalee and beyond.
+            agents across his environment—from infrastructure and firewalls to personal projects and
+            experiments.
           </p>
           <p class="hero-note">
-            This site is a simple public front door. Interactive demos and live agent access are coming later.
+            This site is a simple public front door. The real work happens privately inside a secured
+            OpenClaw deployment.
           </p>
         </div>
       </div>
@@ -48,25 +55,63 @@
       <div class="container">
         <h3>About Starfunkle</h3>
         <p>
-          Starfunkle is a professional, fact-focused AI assistant that lives inside a private OpenClaw
-          deployment. It’s not a generic chatbot; it’s a long-term operator for Nicolas, with access to
-          internal projects, scripts, and tools.
+          Starfunkle is a professional, fact-focused AI assistant that lives on Nicolas' own hardware.
+          It coordinates agents, scripts, and services rather than handing control to random SaaS tools.
         </p>
         <ul class="bullets">
           <li>Helps design and monitor infrastructure and automation.</li>
-          <li>Coordinates specialized agents (research, stock monitoring, real estate helpers).</li>
-          <li>Keeps context in private memory files rather than sending data to random services.</li>
+          <li>Coordinates specialized agents for research, stocks, and operational tasks.</li>
+          <li>Keeps long-term context in private memory files—not in public clouds by default.</li>
         </ul>
       </div>
     </section>
 
-    <section id="projects" class="section section-alt">
+    <section id="capabilities" class="section section-alt">
       <div class="container">
         <h3>What Starfunkle Can Do</h3>
         <p>
           Starfunkle supports a variety of private projects and assistants behind the scenes—helping
-          with planning, automation, monitoring, and research. Specific projects are kept private,
-          but the same core assistant powers all of them.
+          with planning, automation, monitoring, and research. Specific projects are intentionally kept
+          private, but the core capabilities include:
+        </p>
+        <ul class="bullets">
+          <li>Coordinating multiple agents (research, stock monitoring, custom assistants).</li>
+          <li>Watching over infrastructure health, cron jobs, and integrations.</li>
+          <li>Generating documentation, diagrams, and reports on demand.</li>
+          <li>Experimenting with new tools and ideas in a controlled environment.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="integrations" class="section">
+      <div class="container">
+        <h3>Service Topology</h3>
+        <p>
+          At a high level, Starfunkle sits at the center of a small constellation of tools and
+          services. This is a simplified view of the current integrations:
+        </p>
+        <div class="topology">
+          <div class="topology-node core">Starfunkle<br /><span>OpenClaw on-prem</span></div>
+          <div class="topology-branches">
+            <div class="topology-column">
+              <div class="topology-node">Netlify<br /><span>Public website hosting</span></div>
+              <div class="topology-node">GitHub<br /><span>Code & content for the site</span></div>
+            </div>
+            <div class="topology-column">
+              <div class="topology-node">OpenAI GPT-5.1<br /><span>Primary reasoning model</span></div>
+              <div class="topology-node">Brave Search<br /><span>External web research</span></div>
+              <div class="topology-node">ElevenLabs<br /><span>Text-to-speech for voice mode</span></div>
+            </div>
+            <div class="topology-column">
+              <div class="topology-node">AgentMail<br /><span>Agent-native email</span></div>
+              <div class="topology-node">UniFi API<br /><span>Home network monitoring</span></div>
+              <div class="topology-node">Twilio (planned)<br /><span>Voice & phone integrations</span></div>
+            </div>
+          </div>
+        </div>
+        <p class="small">
+          All of these are orchestrated from Starfunkle's core environment, with API keys and
+          configuration kept in a centralized, private `.env` and mirrored to the Dragon node as needed.
         </p>
       </div>
     </section>
@@ -80,7 +125,7 @@
         <ul class="bullets">
           <li>Secure, limited-access demos of Starfunkle’s capabilities.</li>
           <li>Public-friendly tools powered by internal agents.</li>
-          <li>Optional onboarding flows for specific assistants (e.g., real estate or planning tools).</li>
+          <li>Optional onboarding flows for specific assistants (real estate, planning, and more).</li>
         </ul>
         <p class="small">
           For now, Starfunkle remains a private operator. All AI workflows are scoped to Nicolas' environment.
