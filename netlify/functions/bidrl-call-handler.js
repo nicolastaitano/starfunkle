@@ -2,7 +2,6 @@
 // Receives webhook from OpenClaw BidRL monitor and initiates a Twilio call
 
 const twilio = require('twilio');
-const axios = require('axios');
 
 const {
   TWILIO_ACCOUNT_SID,
@@ -21,14 +20,32 @@ exports.handler = async (event) => {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
-  if (!TWILIO_ACCOUNT_SID || !TWILIO_AUTH_TOKEN || !TWILIO_FROM_NUMBER || !NICOLAS_PHONE) {
-    console.error('Missing Twilio config');
-    return { statusCode: 500, body: 'Twilio not configured' };
+  // Debug which Twilio vars are actually missing at runtime
+  const missingTwilio = [];
+  if (!TWILIO_ACCOUNT_SID) missingTwilio.push('TWILIO_ACCOUNT_SID');
+  if (!TWILIO_AUTH_TOKEN) missingTwilio.push('TWILIO_AUTH_TOKEN');
+  if (!TWILIO_FROM_NUMBER) missingTwilio.push('TWILIO_FROM_NUMBER');
+  if (!NICOLAS_PHONE) missingTwilio.push('NICOLAS_PHONE');
+
+  if (missingTwilio.length > 0) {
+    console.error('Missing Twilio config vars:', missingTwilio);
+    return {
+      statusCode: 500,
+      body: `Twilio not configured; missing: ${missingTwilio.join(', ')}`,
+    };
   }
 
-  if (!ELEVENLABS_API_KEY || !ELEVENLABS_VOICE_ID) {
-    console.error('Missing ElevenLabs config');
-    return { statusCode: 500, body: 'ElevenLabs not configured' };
+  // Debug which ElevenLabs vars are missing
+  const missingEleven = [];
+  if (!ELEVENLABS_API_KEY) missingEleven.push('ELEVENLABS_API_KEY');
+  if (!ELEVENLABS_VOICE_ID) missingEleven.push('ELEVENLABS_VOICE_ID');
+
+  if (missingEleven.length > 0) {
+    console.error('Missing ElevenLabs config vars:', missingEleven);
+    return {
+      statusCode: 500,
+      body: `ElevenLabs not configured; missing: ${missingEleven.join(', ')}`,
+    };
   }
 
   if (!BIDRL_TWIML_BASE_URL) {
@@ -59,26 +76,6 @@ exports.handler = async (event) => {
     `${seconds} seconds remain. Check BidRL now if you want to raise your bid.`;
 
   try {
-    // Call ElevenLabs TTS API to generate audio
-    const ttsResponse = await axios({
-      method: 'POST',
-      url: `https://api.elevenlabs.io/v1/text-to-speech/${ELEVENLABS_VOICE_ID}`,
-      headers: {
-        'xi-api-key': ELEVENLABS_API_KEY,
-        'Content-Type': 'application/json',
-        'Accept': 'audio/mpeg',
-      },
-      data: {
-        text: messageText,
-        model_id: 'eleven_multilingual_v2',
-      },
-      responseType: 'arraybuffer',
-    });
-
-    // For now, we assume BIDRL_TWIML_BASE_URL will handle TTS dynamically
-    // and just pass the text + basic metadata via query params.
-    // This keeps us from having to store audio in persistent storage.
-
     const twimlUrl = new URL('/.netlify/functions/bidrl-twiml', BIDRL_TWIML_BASE_URL);
     twimlUrl.searchParams.set('text', messageText);
 
