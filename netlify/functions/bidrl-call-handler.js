@@ -57,8 +57,8 @@ exports.handler = async (event) => {
   try {
     payload = JSON.parse(event.body || '{}');
   } catch (e) {
-    console.error('Invalid JSON payload', e);
-    return { statusCode: 400, body: 'Invalid JSON' };
+    console.error('Invalid JSON payload', { error: e.message, body: event.body });
+    return { statusCode: 400, body: `Invalid JSON: ${e.message}; body=${event.body}` };
   }
 
   const { lotId, title, currentBid, timeRemainingSeconds, url } = payload;
