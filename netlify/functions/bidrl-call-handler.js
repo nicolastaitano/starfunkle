@@ -76,14 +76,15 @@ exports.handler = async (event) => {
     `${seconds} seconds remain. Check BidRL now if you want to raise your bid.`;
 
   try {
-    const twimlUrl = new URL('/.netlify/functions/bidrl-twiml', BIDRL_TWIML_BASE_URL);
-    twimlUrl.searchParams.set('text', messageText);
+    // Construct TwiML URL safely without using URL() to avoid Invalid URL issues
+    const base = BIDRL_TWIML_BASE_URL.replace(/\/$/, '');
+    const twimlUrl = `${base}/.netlify/functions/bidrl-twiml?text=${encodeURIComponent(messageText)}`;
 
     // Initiate Twilio call
     const call = await client.calls.create({
       to: NICOLAS_PHONE,
       from: TWILIO_FROM_NUMBER,
-      url: twimlUrl.toString(),
+      url: twimlUrl,
     });
 
     console.log('Call initiated', call.sid);
